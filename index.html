@@ -37,23 +37,27 @@
         
         /* --- 수정된 헤더 및 네비게이션 스타일 --- */
         .main-header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 60px 40px;
             text-align: center;
-            margin-top: 40px; /* 상단 여백 추가 */
-            margin-bottom: 60px; /* 섹션과의 간격을 더 줌 */
+            border-radius: var(--border-radius);
+            margin-bottom: 40px; /* 아래 카드와의 간격 */
+            margin-top: 20px; /* 상단 네비바와의 간격 */
+            box-shadow: var(--shadow);
         }
         h1 {
-            font-size: 3.2em; /* 폰트 크기를 키움 */
+            font-size: 3em;
             font-weight: 900;
             margin: 0;
-            color: transparent;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
+            color: white; /* 그라데이션 배경이므로 단색으로 변경 */
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 입체감 부여 */
         }
         .header-subtitle {
-            font-size: 1.1em;
-            color: var(--light-text-color);
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.9); /* 순백보다 살짝 부드러운 흰색 */
             margin-top: 10px;
+            font-weight: 400;
         }
         h2 {
             font-size: 2em;
@@ -71,78 +75,57 @@
             margin-bottom: 15px;
         }
 
-        /* 네비게이션 바 */
+        /* 수정된 네비게이션 바 (버튼 형태) */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.7); /* 투명도 소폭 조절 */
-            backdrop-filter: blur(10px); /* 블러 효과 강화 */
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.07); /* 얇은 테두리로 경계 구분 */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            padding: 8px 0; /* 상하 패딩 소폭 조절 */
+            padding: 10px 0; /* 버튼과 바의 여백 */
         }
         .navbar a {
             color: var(--secondary-color);
+            background-color: rgba(255, 255, 255, 0.5); /* 버튼 배경색 */
             text-align: center;
-            padding: 10px 20px; /* 패딩 조절로 더 세련된 비율 */
+            padding: 10px 22px;
             text-decoration: none;
-            font-size: 1em; /* 폰트 크기 살짝 키움 */
+            font-size: 1em;
             font-weight: 700;
-            border-radius: 8px;
+            border-radius: 50px; /* 완전히 둥근 '알약' 모양 버튼 */
+            border: 1px solid transparent;
             transition: all 0.25s ease;
             margin: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 버튼에 그림자 추가 */
         }
         .navbar a:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px); /* 살짝 떠오르는 효과 */
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: white;
         }
         .navbar a.active {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color); /* 활성화된 버튼 */
             color: white;
-            /* 은은하게 빛나는 '글로우' 효과로 변경 */
-            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.4);
+            transform: translateY(-2px);
         }
         
-        /* --- 나머지 스타일 (기존과 동일) --- */
+        /* --- 나머지 스타일 --- */
         p {
             margin-bottom: 15px;
             color: var(--light-text-color);
         }
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        ul li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-            color: var(--light-text-color);
-        }
-        ul li::before {
-            content: '✅';
-            position: absolute;
-            left: 0;
-            top: 2px;
-            font-size: 1em;
-        }
-        .section-card {
-            background-color: var(--card-bg-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 30px 40px;
-            margin-bottom: 40px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .section-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
+        ul { list-style-type: none; padding-left: 0; }
+        ul li { position: relative; padding-left: 25px; margin-bottom: 12px; color: var(--light-text-color); }
+        ul li::before { content: '✅'; position: absolute; left: 0; top: 2px; font-size: 1em; }
+        .section-card { background-color: var(--card-bg-color); border-radius: var(--border-radius); box-shadow: var(--shadow); padding: 30px 40px; margin-bottom: 40px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .section-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); }
         #intro-section { background: linear-gradient(135deg, #eaf5ff 0%, var(--card-bg-color) 70%); }
         #small-meeting-room-section { background: linear-gradient(135deg, #fef6e6 0%, var(--card-bg-color) 70%); }
         #usage-guidance-section { background: linear-gradient(135deg, #f0f0f0 0%, var(--card-bg-color) 70%); }
@@ -179,6 +162,7 @@
         .phone-button { background-color: #2ecc71; color: white; }
 
         @media (max-width: 768px) {
+            .main-header { padding: 40px 20px; }
             h1 { font-size: 2.2em; }
             h2 { font-size: 1.6em; }
             .section-card { padding: 25px; }
