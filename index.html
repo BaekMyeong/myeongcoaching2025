@@ -99,6 +99,27 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
 
+        /* --- 추가: 섹션별 그라데이션 배경 --- */
+        #intro-section {
+            background: linear-gradient(135deg, #eaf5ff 0%, var(--card-bg-color) 70%);
+        }
+        #small-meeting-room-section {
+            background: linear-gradient(135deg, #fef6e6 0%, var(--card-bg-color) 70%);
+        }
+        #usage-guidance-section {
+            background: linear-gradient(135deg, #f0f0f0 0%, var(--card-bg-color) 70%);
+        }
+        #parking-section {
+            background: linear-gradient(135deg, #e6f7f0 0%, var(--card-bg-color) 70%);
+        }
+        #cost-section {
+            background: linear-gradient(135deg, #eaf5ff 0%, var(--card-bg-color) 70%);
+        }
+        #directions-section {
+            background: linear-gradient(135deg, #fdeeee 0%, var(--card-bg-color) 70%);
+        }
+        /* --- 여기까지 추가 --- */
+
         /* 네비게이션 바 */
         .navbar {
             background-color: rgba(255, 255, 255, 0.85);
@@ -398,104 +419,4 @@
 
     <script src="scripts.js" defer></script>
 </body>
-</html>```
-
----
-
-### **`scripts.js` 파일**
-
-기능을 담당하는 JavaScript 파일입니다. 코드는 이전과 동일하며, HTML 구조와 잘 동작하도록 되어 있습니다.
-
-```javascript
-// 페이지의 모든 콘텐츠가 로드된 후에 스크립트 실행
-document.addEventListener('DOMContentLoaded', () => {
-
-    // 비용 계산 기능
-    function calculateCost() {
-        const numParticipants = parseInt(document.getElementById('numParticipants').value) || 0;
-        const rentalHours = parseInt(document.getElementById('rentalHours').value) || 0;
-        const useProjector = document.getElementById('useProjector').checked;
-
-        if (numParticipants <= 0 || rentalHours <= 0) {
-            document.getElementById('totalCost').innerText = "0";
-            return;
-        }
-
-        let baseRatePerHour;
-        // --- 비용 정책 업데이트 시 이 부분을 수정하세요 ---
-        if (numParticipants <= 15) {
-            baseRatePerHour = 60000; // 15인 이하
-        } else {
-            baseRatePerHour = 70000; // 15인 이상
-        }
-
-        let totalBaseCost = baseRatePerHour * rentalHours;
-        let projectorCost = 0;
-
-        // --- 프로젝터 비용 정책 업데이트 시 이 부분을 수정하세요 ---
-        if (useProjector) {
-            projectorCost = 5000 * rentalHours;
-        }
-        // ---------------------------------------------
-
-        let finalCost = totalBaseCost + projectorCost;
-
-        // 숫자에 콤마를 추가하여 표시
-        document.getElementById('totalCost').innerText = finalCost.toLocaleString();
-    }
-
-    // 네비게이션 탭 클릭 시 부드럽게 스크롤하고 활성화
-    const navLinks = document.querySelectorAll('.navbar a');
-    navLinks.forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                // 네비게이션 바 높이를 고려하여 스크롤 위치 조정
-                const offsetPosition = targetElement.offsetTop - 80;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // 스크롤 위치에 따라 현재 섹션의 네비게이션 탭 활성화
-    const sections = document.querySelectorAll('.section-card');
-    window.addEventListener('scroll', () => {
-        let currentSectionId = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 100) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(currentSectionId)) {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // 계산기 관련 요소들에 이벤트 리스너 추가
-    const calculateButton = document.querySelector('.calculate-button');
-    const calculatorInputs = document.querySelectorAll('.calculator-section input');
-
-    if (calculateButton) {
-        calculateButton.addEventListener('click', calculateCost);
-    }
-    
-    calculatorInputs.forEach(input => {
-        input.addEventListener('input', calculateCost);
-    });
-
-    // 페이지 로드 시 계산기 초기화
-    calculateCost();
-});
+</html>
