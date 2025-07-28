@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>명코칭 광주교육실 대여 안내</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --text-color: #333;
+            --light-text-color: #6c757d;
+            --highlight-color: #e74c3c;
+            --border-radius: 12px;
+            --shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 기본 스타일 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            margin: 0;
+            background-color: var(--background-color);
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            font-weight: 900;
+            margin-bottom: 40px;
+            color: transparent;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h3 {
+            font-size: 1.4em;
+            color: var(--primary-color);
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 15px;
+            color: var(--light-text-color);
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: var(--light-text-color);
+        }
+        ul li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 1em;
+        }
+
+        /* 카드 섹션 스타일 */
+        .section-card {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 네비게이션 바 */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 5px 0;
+        }
+        .navbar a {
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 12px 18px;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        .navbar a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .navbar a.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.4);
+        }
+
+        /* 비용 섹션 */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .price-item {
+            background-color: var(--background-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.2s ease;
+        }
+        .price-item:hover {
+            transform: scale(1.05);
+        }
+        .price-item h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        .price-item .price {
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+        .vat-info {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: var(--highlight-color);
+        }
+        
+        /* 계산기 섹션 */
+        .calculator-section {
+            background: linear-gradient(135deg, #f0f4f7, #e6e9f0);
+            padding: 30px;
+            border-radius: var(--border-radius);
+        }
+        .calculator-section label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .calculator-section input[type="number"], .calculator-section select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        .calculator-section .input-group { margin-bottom: 20px; }
+        .calculate-button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+        .calculate-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
+        }
+        .result-box {
+            background-color: var(--card-bg-color);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        .result-box #totalCost { color: var(--highlight-color); font-weight: 900; }
+
+        /* 지도 및 안내 */
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: var(--border-radius);
+        }
+        .note {
+            font-size: 0.95em;
+            padding: 15px;
+            background-color: #eaf5ff;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .note strong { color: var(--primary-color); }
+
+        /* 하단 푸터 */
+        .footer-contact {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            color: white;
+        }
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+        }
+        .footer-contact .contact-buttons a {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .footer-contact .contact-buttons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        .kakao-button { background-color: #FEE500; color: #3C1E1E; }
+        .instagram-button { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #bc1888); color: white; }
+        .phone-button { background-color: #2ecc71; color: white; }
+
+        /* 모바일 반응형 스타일 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.6em; }
+            .section-card { padding: 25px; }
+            .navbar a { flex-basis: calc(50% - 10px); text-align: center; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="#intro-section" class="active">소개</a>
+        <a href="#small-meeting-room-section">소회의실</a>
+        <a href="#usage-guidance-section">이용안내</a>
+        <a href="#parking-section">주차</a>
+        <a href="#cost-section">비용</a>
+        <a href="#directions-section">오시는 길</a>
+    </div>
+
+    <div class="container">
+        <h1>명코칭 광주교육실 대여 안내</h1>
+
+        <div id="intro-section" class="section-card">
+            <h2>🏫 교육실 소개</h2>
+            <p><strong>성공적인 교육과 세미나를 위한 완벽한 공간, 명코칭 광주교육실입니다.</strong> 최적의 접근성, 최신 시설, 그리고 합리적인 비용으로 여러분의 행사를 빛내보세요.</p>
+            <ul>
+                <li><strong>편리한 접근성:</strong> 대중교통과 자차 모두 편리하게 방문 가능합니다.</li>
+                <li><strong>최신 시설 완비:</strong> Full HD 빔 프로젝터, 음향 장비 등 교육에 필요한 모든 것이 갖춰져 있습니다.</li>
+                <li><strong>넓고 쾌적한 공간:</strong> 최대 40인까지 수용 가능하며, 목적에 맞게 자유로운 배치가 가능합니다.</li>
+                <li><strong>맞춤형 공간 설계:</strong> 1인 1테이블 제공으로 교육 몰입도를 높여줍니다.</li>
+            </ul>
+        </div>
+
+        <div id="small-meeting-room-section" class="section-card">
+            <h2>☕ 소회의실 안내</h2>
+            <p>메인 강의실 외에, 프라이빗한 미팅이나 편안한 휴식을 위한 <strong>아늑한 소회의실</strong>이 마련되어 있습니다. 조용한 분위기에서 집중력을 높여보세요.</p>
+            <ul>
+                <li><strong>소규모 미팅 최적화:</strong> 4~6인 그룹에 이상적인 집중의 공간입니다.</li>
+                <li><strong>편안한 휴식 제공:</strong> 교육 중간, 재충전을 위한 힐링 공간으로 활용해보세요.</li>
+                <li><strong>프리미엄 커피 제공:</strong> 네스카페 돌체구스토 머신과 스타벅스 캡슐로 여유를 즐기세요.</li>
+            </ul>
+        </div>
+
+        <div id="usage-guidance-section" class="section-card">
+            <h2>✨ 부대시설 및 이용 안내</h2>
+            <p>쾌적하고 원활한 교육실 이용을 위해 다음 사항들을 확인해 주세요.</p>
+            <h3>주요 안내사항</h3>
+            <ul>
+                <li><strong>예약 시간:</strong> 최소 2시간부터 예약 가능합니다.</li>
+                <li><strong>무료 제공 품목:</strong> 마이크, 포인터, 캡슐 커피, 각종 티백, 냉온수기 등</li>
+                <li><strong>예약 확정:</strong> 대관 비용 전액 선입금 시 예약이 확정됩니다.</li>
+                <li><strong>취소 규정:</strong> 이용 5일 전까지 50% 환불, 그 이후는 환불이 불가합니다.</li>
+                <li><strong>음식물 반입:</strong> 냄새가 강하지 않은 간단한 다과 및 도시락은 반입 가능합니다.</li>
+            </ul>
+        </div>
+
+        <div id="parking-section" class="section-card">
+            <h2>🚗 주차안내</h2>
+            <p>자차로 오시는 분들을 위해 <strong>넓고 편리한 무료 주차 공간</strong>을 제공합니다. 교육실 건물 바로 옆 일신아파트 상가 주차장을 이용하세요.</p>
+            <ul>
+                <li><strong>네비게이션 검색:</strong> '명코칭' 또는 '월드컵4강로 135'</li>
+                <li><strong>주차 장소:</strong> 일신아파트 상가 옆 아파트 주차장 (무료, 무정산)</li>
+                <li><strong>편리한 동선:</strong> 주차 후 교육실까지의 이동이 매우 가깝고 편리합니다.</li>
+            </ul>
+        </div>
+        
+        <div id="cost-section" class="section-card">
+            <h2>💰 비용 안내</h2>
+            <div class="price-grid">
+                <div class="price-item">
+                    <h3>👥 15인 이하</h3>
+                    <p class="price">60,000원</p>
+                    <p>/ 시간당</p>
+                </div>
+                <div class="price-item">
+                    <h3>👥 15인 이상</h3>
+                    <p class="price">70,000원</p>
+                    <p>/ 시간당</p>
+                </div>
+            </div>
+            <p class="vat-info">* 모든 금액은 VAT 별도입니다.</p>
+
+            <h3 style="margin-top: 40px;">🧮 예상 대여료 계산기</h3>
+            <div class="calculator-section">
+                <div class="input-group">
+                    <label for="numParticipants">참가 인원 (명)</label>
+                    <input type="number" id="numParticipants" min="1" value="1" placeholder="예: 10">
+                </div>
+                <div class="input-group">
+                    <label for="rentalHours">이용 시간 (시간)</label>
+                    <input type="number" id="rentalHours" min="2" value="2" placeholder="예: 3">
+                </div>
+                <div class="input-group">
+                    <input type="checkbox" id="useProjector" style="width: auto; margin-right: 8px;">
+                    <label for="useProjector" style="display: inline-block;">빔 프로젝터 사용 (+ 시간당 5,000원)</label>
+                </div>
+                <button class="calculate-button" onclick="calculateCost()">예상 비용 계산하기</button>
+                <div class="result-box">
+                    <span>예상 총 대여료 (VAT 별도): </span><span id="totalCost">0</span><span> 원</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="directions-section" class="section-card">
+            <h2>📍 찾아오시는 길</h2>
+            <p><strong>주소:</strong> 광주광역시 서구 월드컵4강로 135, 일신아파트 상가 201호</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.774431713289!2d126.85966467634356!3d35.13702125919622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3571891b6e469577%3A0x9d43537c350998a4!2z6rSR7KO86rSR7Jet7IucIOyEnOq0keyVvOydhOyLnCDsmKzrj5nqtZDrj5kgMTM1!5e0!3m2!1sko!2skr!4v1695020948924!5m2!1sko!2skr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <h3>🚌 대중교통 이용</h3>
+            <ul>
+                <li><strong>지하철:</strong> 광주 1호선 쌍촌역 2번 출구에서 도보 6분 (약 500m)</li>
+                <li><strong>버스:</strong> '가톨릭대평생교육원' 정류장 하차 후 도보 2분 (금호36, 송암47)</li>
+            </ul>
+            <div class="note">
+                <strong>광주송정역</strong>에서는 차로 15분, <strong>버스터미널</strong>에서는 10분 거리에 위치하여 접근성이 매우 뛰어납니다.
+            </div>
+        </div>
+
+        <div class="footer-contact">
+            <p>궁금한 점이 있으신가요? 언제든지 편하게 문의주세요!</p>
+            <div class="contact-buttons">
+                <a href="http://pf.kakao.com/_Lhjxis" target="_blank" class="kakao-button">💬 카카오채널 상담</a>
+                <a href="https://www.instagram.com/mcoaching_emotion" target="_blank" class="instagram-button">📸 인스타그램 문의</a>
+                <a href="tel:062-385-0606" class="phone-button">📞 전화 문의</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js" defer></script>
+</body>
+</html>```
+
+---
+
+### **`scripts.js` 파일**
+
+기능을 담당하는 JavaScript 파일입니다. 코드는 이전과 동일하며, HTML 구조와 잘 동작하도록 되어 있습니다.
+
+```javascript
+// 페이지의 모든 콘텐츠가 로드된 후에 스크립트 실행
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 비용 계산 기능
+    function calculateCost() {
+        const numParticipants = parseInt(document.getElementById('numParticipants').value) || 0;
+        const rentalHours = parseInt(document.getElementById('rentalHours').value) || 0;
+        const useProjector = document.getElementById('useProjector').checked;
+
+        if (numParticipants <= 0 || rentalHours <= 0) {
+            document.getElementById('totalCost').innerText = "0";
+            return;
+        }
+
+        let baseRatePerHour;
+        // --- 비용 정책 업데이트 시 이 부분을 수정하세요 ---
+        if (numParticipants <= 15) {
+            baseRatePerHour = 60000; // 15인 이하
+        } else {
+            baseRatePerHour = 70000; // 15인 이상
+        }
+
+        let totalBaseCost = baseRatePerHour * rentalHours;
+        let projectorCost = 0;
+
+        // --- 프로젝터 비용 정책 업데이트 시 이 부분을 수정하세요 ---
+        if (useProjector) {
+            projectorCost = 5000 * rentalHours;
+        }
+        // ---------------------------------------------
+
+        let finalCost = totalBaseCost + projectorCost;
+
+        // 숫자에 콤마를 추가하여 표시
+        document.getElementById('totalCost').innerText = finalCost.toLocaleString();
+    }
+
+    // 네비게이션 탭 클릭 시 부드럽게 스크롤하고 활성화
+    const navLinks = document.querySelectorAll('.navbar a');
+    navLinks.forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // 네비게이션 바 높이를 고려하여 스크롤 위치 조정
+                const offsetPosition = targetElement.offsetTop - 80;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 스크롤 위치에 따라 현재 섹션의 네비게이션 탭 활성화
+    const sections = document.querySelectorAll('.section-card');
+    window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 100) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(currentSectionId)) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // 계산기 관련 요소들에 이벤트 리스너 추가
+    const calculateButton = document.querySelector('.calculate-button');
+    const calculatorInputs = document.querySelectorAll('.calculator-section input');
+
+    if (calculateButton) {
+        calculateButton.addEventListener('click', calculateCost);
+    }
+    
+    calculatorInputs.forEach(input => {
+        input.addEventListener('input', calculateCost);
+    });
+
+    // 페이지 로드 시 계산기 초기화
+    calculateCost();
+});
