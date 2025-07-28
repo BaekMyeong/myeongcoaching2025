@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* 기존 변수에 네비게이션 색상 변수 추가 */
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
             --background-color: #f8f9fa;
@@ -18,6 +19,14 @@
             --highlight-color: #e74c3c;
             --border-radius: 12px;
             --shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            
+            /* 네비게이션 버튼 색상 정의 */
+            --nav-color-intro: #eaf5ff;
+            --nav-color-meeting: #fef6e6;
+            --nav-color-guidance: #f0f0f0;
+            --nav-color-parking: #e6f7f0;
+            --nav-color-cost: #e3f2fd;
+            --nav-color-directions: #fdeeee;
         }
 
         /* 기본 스타일 */
@@ -35,27 +44,27 @@
             padding: 20px;
         }
         
-        /* --- 수정된 헤더 및 네비게이션 스타일 --- */
+        /* 헤더 (히어로 섹션) */
         .main-header {
             background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
             color: white;
             padding: 60px 40px;
             text-align: center;
             border-radius: var(--border-radius);
-            margin-bottom: 40px; /* 아래 카드와의 간격 */
-            margin-top: 20px; /* 상단 네비바와의 간격 */
+            margin-bottom: 40px;
+            margin-top: 20px;
             box-shadow: var(--shadow);
         }
         h1 {
             font-size: 3em;
             font-weight: 900;
             margin: 0;
-            color: white; /* 그라데이션 배경이므로 단색으로 변경 */
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 입체감 부여 */
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .header-subtitle {
             font-size: 1.2em;
-            color: rgba(255, 255, 255, 0.9); /* 순백보다 살짝 부드러운 흰색 */
+            color: rgba(255, 255, 255, 0.9);
             margin-top: 10px;
             font-weight: 400;
         }
@@ -75,7 +84,7 @@
             margin-bottom: 15px;
         }
 
-        /* 수정된 네비게이션 바 (버튼 형태) */
+        /* 네비게이션 바 (개별 색상 및 이모티콘) */
         .navbar {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
@@ -88,39 +97,47 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            padding: 10px 0; /* 버튼과 바의 여백 */
+            padding: 10px 0;
         }
         .navbar a {
             color: var(--secondary-color);
-            background-color: rgba(255, 255, 255, 0.5); /* 버튼 배경색 */
             text-align: center;
-            padding: 10px 22px;
+            padding: 10px 18px;
             text-decoration: none;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 700;
-            border-radius: 50px; /* 완전히 둥근 '알약' 모양 버튼 */
-            border: 1px solid transparent;
+            border-radius: 50px;
             transition: all 0.25s ease;
             margin: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* 버튼에 그림자 추가 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        /* 개별 버튼 색상 적용 */
+        .navbar .nav-intro { background-color: var(--nav-color-intro); }
+        .navbar .nav-meeting { background-color: var(--nav-color-meeting); }
+        .navbar .nav-guidance { background-color: var(--nav-color-guidance); }
+        .navbar .nav-parking { background-color: var(--nav-color-parking); }
+        .navbar .nav-cost { background-color: var(--nav-color-cost); }
+        .navbar .nav-directions { background-color: var(--nav-color-directions); }
+
         .navbar a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            background-color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            filter: brightness(1.05);
         }
         .navbar a.active {
-            background-color: var(--secondary-color); /* 활성화된 버튼 */
+            background-color: var(--secondary-color);
             color: white;
             box-shadow: 0 4px 15px rgba(44, 62, 80, 0.4);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            filter: brightness(1);
         }
-        
-        /* --- 나머지 스타일 --- */
-        p {
-            margin-bottom: 15px;
-            color: var(--light-text-color);
-        }
+
+        /* 나머지 스타일 */
+        p { margin-bottom: 15px; color: var(--light-text-color); }
         ul { list-style-type: none; padding-left: 0; }
         ul li { position: relative; padding-left: 25px; margin-bottom: 12px; color: var(--light-text-color); }
         ul li::before { content: '✅'; position: absolute; left: 0; top: 2px; font-size: 1em; }
@@ -166,18 +183,18 @@
             h1 { font-size: 2.2em; }
             h2 { font-size: 1.6em; }
             .section-card { padding: 25px; }
-            .navbar a { flex-basis: calc(50% - 10px); text-align: center; }
+            .navbar a { flex-basis: calc(50% - 10px); justify-content: center; } /* 모바일에서 버튼 중앙 정렬 */
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <a href="#intro-section" class="active">소개</a>
-        <a href="#small-meeting-room-section">소회의실</a>
-        <a href="#usage-guidance-section">이용안내</a>
-        <a href="#parking-section">주차</a>
-        <a href="#cost-section">비용</a>
-        <a href="#directions-section">오시는 길</a>
+        <a href="#intro-section" class="nav-intro active">🏫 소개</a>
+        <a href="#small-meeting-room-section" class="nav-meeting">☕ 소회의실</a>
+        <a href="#usage-guidance-section" class="nav-guidance">✨ 이용안내</a>
+        <a href="#parking-section" class="nav-parking">🚗 주차</a>
+        <a href="#cost-section" class="nav-cost">💰 비용</a>
+        <a href="#directions-section" class="nav-directions">📍 오시는 길</a>
     </div>
 
     <div class="container">
