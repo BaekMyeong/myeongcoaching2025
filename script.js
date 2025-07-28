@@ -33,67 +33,62 @@ function calculateCost() {
 
 // 페이지 로드 시 또는 특정 이벤트 발생 시 함수들이 실행되도록 설정
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 햄버거 메뉴 기능 추가 ---
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (navToggle) {
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            navToggle.classList.toggle('active');
-        });
-    }
-
+    
     // 페이지가 처음 로드될 때 계산기 초기화
     calculateCost();
 
-    // 네비게이션 탭 스크롤 기능 및 활성화
-    document.querySelectorAll('.navbar a').forEach(anchor => {
+    // 네비게이션(상단/하단) 탭 스크롤 기능 및 활성화
+    const allNavLinks = document.querySelectorAll('.navbar a, .bottom-nav a');
+
+    allNavLinks.forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
 
-            // 모바일 메뉴가 열려있으면 닫기
-            if (window.innerWidth <= 768) {
-                navLinks.classList.remove('active');
-                navToggle.classList.remove('active');
-            }
-
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
+
             if(targetElement) {
-                // sticky navbar 높이를 고려하여 스크롤 위치 조정
-                const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                // sticky navbar 높이를 고려하여 스크롤 위치 조정 (데스크톱만 해당)
+                let offset = 0;
+                if (window.innerWidth > 768) {
+                    offset = document.querySelector('.navbar').offsetHeight;
+                }
+                
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
 
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
             }
-            
-            // 모든 탭의 active 클래스 제거
-            document.querySelectorAll('.navbar a').forEach(item => item.classList.remove('active'));
-            // 클릭된 탭에 active 클래스 추가
-            this.classList.add('active');
         });
     });
 
     // 스크롤 위치에 따라 네비게이션 탭 활성화
-    const sections = document.querySelectorAll('.section-card'); // section-box 대신 section-card 사용
-    const navLinksList = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('.section-card');
+    const navLinksDesktop = document.querySelectorAll('.navbar a');
+    const navLinksMobile = document.querySelectorAll('.bottom-nav a');
 
     window.addEventListener('scroll', () => {
         let current = '';
-        const navbarHeight = 70; // 네비게이션 바 높이 근사치
+        // 활성화 위치를 화면의 약 1/4 지점으로 조정하여 더 자연스럽게
+        const scrollTriggerPoint = window.innerHeight * 0.25; 
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - navbarHeight) {
+            if (pageYOffset >= sectionTop - scrollTriggerPoint) {
                 current = '#' + section.getAttribute('id');
             }
         });
 
-        navLinksList.forEach(link => {
+        // 데스크톱과 모바일 네비게이션 링크 모두 업데이트
+        navLinksDesktop.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === current) {
+                link.classList.add('active');
+            }
+        });
+        navLinksMobile.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === current) {
                 link.classList.add('active');
