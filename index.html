@@ -82,7 +82,7 @@
             margin-bottom: 15px;
         }
 
-        /* --- 네비게이션 바 수정 --- */
+        /* --- 데스크톱 상단 네비게이션 바 --- */
         .navbar {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
@@ -93,15 +93,15 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(0, 0, 0, 0.07);
             display: flex;
-            justify-content: center; /* 데스크탑에서는 중앙 정렬 */
+            justify-content: center;
             flex-wrap: wrap;
-            padding: 10px; /* 패딩 조정 */
+            padding: 10px;
         }
-        .nav-links { /* 링크들을 감싸는 컨테이너 */
+        .nav-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px; /* 링크 사이 간격 */
+            gap: 10px;
         }
         .navbar a {
             color: var(--secondary-color);
@@ -112,7 +112,7 @@
             font-weight: 700;
             border-radius: 50px;
             transition: all 0.25s ease;
-            margin: 0; /* 개별 마진 제거 */
+            margin: 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
@@ -138,27 +138,11 @@
             filter: brightness(1);
         }
         
-        /* --- 모바일용 햄버거 버튼 (평소엔 숨김) --- */
-        .nav-toggle {
+        /* 모바일용 하단 탭 바 (평소엔 숨김) */
+        .bottom-nav {
             display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 1100; /* 메뉴보다 위에 오도록 */
         }
-        .nav-toggle .bar {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--secondary-color);
-            margin: 5px auto;
-            transition: all 0.3s ease-in-out;
-        }
-        /* ---------------------------------- */
 
-
-        /* 리스트 스타일 (CSS로 이모티콘 추가하는 부분 제거) */
         p { margin-bottom: 15px; color: var(--light-text-color); }
         ul { list-style-type: none; padding-left: 0; }
         ul li { margin-bottom: 12px; color: var(--light-text-color); }
@@ -202,68 +186,64 @@
 
         /* --- 반응형 (모바일) 스타일 수정 --- */
         @media (max-width: 768px) {
+            body {
+                /* 하단 탭 바에 콘텐츠가 가려지지 않도록 body에 아래쪽 여백 추가 */
+                padding-bottom: 75px; 
+            }
             .main-header { padding: 40px 20px; }
             h1 { font-size: 2.2em; }
             h2 { font-size: 1.6em; }
             .section-card { padding: 25px; }
 
+            /* 기존 상단 네비게이션 바 숨기기 */
             .navbar {
-                justify-content: flex-end; /* 햄버거 버튼을 오른쪽으로 */
-                padding: 10px 20px;
+                display: none;
             }
-            .nav-toggle {
-                display: block; /* 모바일에서 햄버거 버튼 보이기 */
-            }
-            .nav-links {
-                position: fixed; /* 화면에 고정 */
-                top: 0;
-                right: 0;
-                width: 250px; /* 메뉴 너비 */
-                height: 100vh; /* 전체 높이 */
-                background-color: var(--card-bg-color);
-                flex-direction: column; /* 세로로 정렬 */
-                justify-content: flex-start;
-                align-items: stretch; /* 항목을 꽉 채우기 */
-                padding: 80px 20px 20px;
-                gap: 15px;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-                transform: translateX(100%); /* 오른쪽 화면 밖으로 숨기기 */
-                transition: transform 0.3s ease-in-out;
-            }
-            .nav-links.active {
-                transform: translateX(0); /* active 클래스가 붙으면 보이도록 */
-            }
-            .navbar a {
-                flex-basis: auto;
-                justify-content: flex-start; /* 텍스트 왼쪽 정렬 */
+
+            /* 모바일용 하단 탭 바 스타일 */
+            .bottom-nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                position: fixed;
+                bottom: 0;
+                left: 0;
                 width: 100%;
-                padding: 15px 20px;
-                box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+                height: 65px;
+                background-color: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+                z-index: 1000;
+                padding: 5px 0;
             }
-            
-            /* 메뉴가 열렸을 때 햄버거 버튼 X 모양으로 변경 */
-            .nav-toggle.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
+            .bottom-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                color: var(--light-text-color);
+                font-size: 0.8em;
+                font-weight: 500;
+                height: 100%;
+                flex-grow: 1; /* 모든 아이템이 동일한 너비를 갖도록 함 */
+                transition: color 0.2s ease, transform 0.2s ease;
             }
-            .nav-toggle.active .bar:nth-child(2) {
-                opacity: 0;
+            .bottom-nav a .icon {
+                font-size: 1.5em; /* 이모티콘 크기 */
+                margin-bottom: 2px;
             }
-            .nav-toggle.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
+            .bottom-nav a.active {
+                color: var(--primary-color);
+                font-weight: 700;
+                transform: translateY(-3px);
             }
         }
     </style>
 </head>
 <body>
-    <!-- navbar 구조 수정 -->
     <div class="navbar">
-        <!-- 햄버거 버튼 추가 -->
-        <button class="nav-toggle" aria-label="메뉴 토글">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-        <!-- 기존 링크들을 div로 감싸기 -->
         <div class="nav-links">
             <a href="#intro-section" class="nav-intro active">🏫 소개</a>
             <a href="#small-meeting-room-section" class="nav-meeting">☕ 소회의실</a>
@@ -390,6 +370,30 @@
             </div>
         </div>
     </div>
+    
+    <!-- 모바일용 하단 탭 바 -->
+    <nav class="bottom-nav">
+        <a href="#intro-section" class="active">
+            <span class="icon">🏫</span>
+            <span class="text">소개</span>
+        </a>
+        <a href="#small-meeting-room-section">
+            <span class="icon">☕</span>
+            <span class="text">소회의실</span>
+        </a>
+        <a href="#usage-guidance-section">
+            <span class="icon">✨</span>
+            <span class="text">이용안내</span>
+        </a>
+        <a href="#cost-section">
+            <span class="icon">💰</span>
+            <span class="text">비용</span>
+        </a>
+        <a href="#directions-section">
+            <span class="icon">📍</span>
+            <span class="text">오시는길</span>
+        </a>
+    </nav>
 
     <script src="scripts.js" defer></script>
 </body>
